@@ -1,0 +1,99 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SERPSnap Private Terminal</title>
+    <script src="https://js.puter.com/v2/"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore-compat.js"></script>
+    <style>
+        :root { --accent: #ffb400; --bg: #0a0a0a; --panel: #161616; }
+        body { background: var(--bg); color: #e4e3e0; font-family: 'JetBrains Mono', monospace; margin: 0; padding: 20px; display: flex; align-items: center; justify-content: center; min-height: 100vh; }
+        .admin-box { width: 100%; max-width: 600px; background: var(--panel); padding: 40px; border-radius: 20px; border: 1px solid #333; box-shadow: 0 20px 50px rgba(0,0,0,0.5); }
+        h1 { color: var(--accent); font-size: 24px; margin-bottom: 10px; text-transform: uppercase; letter-spacing: 2px; }
+        p { opacity: 0.6; font-size: 13px; margin-bottom: 30px; }
+        input { width: 100%; padding: 15px; background: #000; border: 1px solid #333; color: var(--accent); border-radius: 10px; margin-bottom: 20px; outline: none; box-sizing: border-box; }
+        button { width: 100%; padding: 18px; background: var(--accent); color: black; border: none; border-radius: 10px; font-weight: 800; cursor: pointer; transition: 0.3s; text-transform: uppercase; }
+        button:hover { background: #e5a300; transform: scale(1.02); }
+        #status { margin-top: 20px; text-align: center; font-size: 12px; color: var(--accent); min-height: 20px; }
+    </style>
+</head>
+<body>
+
+<div class="admin-box">
+    <h1>System Console</h1>
+    <p>Enter topic to generate humanized SEO content via Techendy Engine.</p>
+    
+    <input type="text" id="topic" placeholder="e.g. Best SEO Strategies for 2026">
+    <button onclick="executePublish()">Publish to Network</button>
+    
+    <div id="status">System Standby...</div>
+</div>
+
+<script>
+    // Firebase Chabi (Auto-Configured)
+    const firebaseConfig = {
+        apiKey: "AIzaSyBPRdJ0mKV22T0ZGY5SgpX4GFm1m8IqSpc",
+        authDomain: "gen-lang-client-0164718316.firebaseapp.com",
+        projectId: "gen-lang-client-0164718316",
+        appId: "1:72325647750:web:455de5a0d8db5264de7007"
+    };
+
+    firebase.initializeApp(firebaseConfig);
+    const db = firebase.firestore();
+
+    async function executePublish() {
+        const topic = document.getElementById('topic').value;
+        const status = document.getElementById('status');
+        
+        if(!topic) return alert("Bhai topic bhool gaye!");
+
+        status.innerText = "⏳ AI GENERATING CONTENT (HUMANIZING)...";
+
+        try {
+            const prompt = `Write a high-quality humanized SEO blog article about "${topic}".
+            Tone: Conversational but professional.
+            Return ONLY raw JSON with:
+            {
+                "title": "catchy title",
+                "excerpt": "brief summary",
+                "content": "HTML structure with <p> and <h3>",
+                "emoji": "rocket or tech emoji",
+                "gradient": "linear-gradient style",
+                "keywords": ["tag1", "tag2"],
+                "readTime": "5 min"
+            }`;
+
+            const response = await puter.ai.chat(prompt, { model: 'gpt-4o-mini' });
+            let raw = typeof response === 'string' ? response : response.message.content;
+
+            // JSON Cleaner Logic
+            const jsonMatch = raw.match(/\{[\s\S]*\}/);
+            if (!jsonMatch) throw new Error("Invalid AI Response Format.");
+            
+            const data = JSON.parse(jsonMatch[0]);
+
+            status.innerText = "📤 SYNCING WITH CLOUD STORAGE...";
+
+            await db.collection("articles").add({
+                ...data,
+                category: "SEO Intelligence",
+                status: "published",
+                createdAt: new Date().toISOString(),
+                timestamp: firebase.firestore.FieldValue.serverTimestamp()
+            });
+
+            status.innerText = "✅ DEPLOYED SUCCESSFULLY! CHECK YOUR BLOG.";
+            document.getElementById('topic').value = "";
+
+        } catch (error) {
+            console.error(error);
+            status.innerText = "❌ ERROR: " + error.message;
+        }
+    }
+</script>
+
+</body>
+</html>
