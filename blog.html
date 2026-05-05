@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SEO Blog — Tips, Guides & Tools | SERPSnap</title>
+<meta name="description" content="Free SEO guides and tips for bloggers and small business owners. Learn how to write better meta tags, improve keyword density, and get more traffic from Google.">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://tools.serpsnap.abrdns.com/blog.html">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Lora:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{--bg:#f7f8fc;--white:#fff;--border:#e0e4f5;--accent:#3b56f5;--text:#111827;--text2:#4b5563;--text3:#9ca3af;--green:#00a878;--font:'Plus Jakarta Sans',sans-serif;--serif:'Lora',serif;}
+body{font-family:var(--font);background:var(--bg);color:var(--text);}
+header{background:var(--white);border-bottom:1px solid var(--border);padding:0 2rem;display:flex;align-items:center;justify-content:space-between;height:60px;position:sticky;top:0;z-index:100;box-shadow:0 1px 8px rgba(59,86,245,0.07);}
+.logo{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--text);}
+.logo-mark{width:34px;height:34px;border-radius:9px;background:var(--accent);display:flex;align-items:center;justify-content:center;font-size:17px;}
+.logo-text{font-size:1.2rem;font-weight:800;}.logo-text span{color:var(--accent);}
+nav{display:flex;gap:6px;}
+nav a{text-decoration:none;color:var(--text2);font-size:13px;font-weight:600;padding:6px 14px;border-radius:20px;transition:all 0.18s;}
+nav a:hover,nav a.active{background:#eef1ff;color:var(--accent);}
+/* BLOG LIST */
+.blog-hero{background:var(--white);border-bottom:1px solid var(--border);padding:2.5rem 1.5rem;text-align:center;}
+.blog-hero h1{font-size:clamp(1.8rem,4vw,2.4rem);font-weight:800;letter-spacing:-0.5px;margin-bottom:0.6rem;}
+.blog-hero h1 span{color:var(--accent);}
+.blog-hero p{color:var(--text2);max-width:500px;margin:0 auto;line-height:1.7;}
+.main{max-width:1080px;margin:0 auto;padding:2rem 1.5rem 5rem;}
+/* POST GRID */
+#post-list{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:1.25rem;}
+.post-card{background:var(--white);border:1px solid var(--border);border-radius:14px;overflow:hidden;box-shadow:0 1px 8px rgba(59,86,245,0.06);cursor:pointer;transition:all 0.2s;}
+.post-card:hover{transform:translateY(-3px);box-shadow:0 8px 24px rgba(59,86,245,0.12);border-color:var(--accent);}
+.post-img{height:160px;display:flex;align-items:center;justify-content:center;font-size:3.5rem;}
+.post-body{padding:1.25rem;}
+.post-cat{font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--accent);margin-bottom:0.5rem;}
+.post-title{font-size:1rem;font-weight:800;line-height:1.4;margin-bottom:0.5rem;color:var(--text);}
+.post-excerpt{font-size:13px;color:var(--text2);line-height:1.6;margin-bottom:0.75rem;}
+.post-meta{display:flex;align-items:center;gap:10px;font-size:11px;color:var(--text3);}
+.read-more{display:inline-flex;align-items:center;gap:5px;color:var(--accent);font-size:12px;font-weight:700;margin-top:0.75rem;}
+/* SINGLE POST */
+#post-single{display:none;}
+.back-btn{display:inline-flex;align-items:center;gap:7px;background:var(--white);border:1px solid var(--border);border-radius:20px;padding:7px 16px;font-size:13px;font-weight:600;color:var(--text2);cursor:pointer;margin-bottom:1.5rem;transition:all 0.18s;}
+.back-btn:hover{border-color:var(--accent);color:var(--accent);}
+.post-full{max-width:740px;margin:0 auto;}
+.post-full-header{margin-bottom:2rem;}
+.post-full-cat{font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--accent);margin-bottom:0.6rem;}
+.post-full-title{font-size:clamp(1.6rem,4vw,2.2rem);font-weight:800;line-height:1.2;letter-spacing:-0.5px;margin-bottom:0.8rem;}
+.post-full-meta{font-size:13px;color:var(--text3);}
+.post-full-img{height:280px;background:linear-gradient(135deg,#667eea,#764ba2);border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:5rem;margin-bottom:2rem;}
+.post-content{font-family:var(--serif);font-size:17px;line-height:1.85;color:var(--text2);}
+.post-content h2{font-family:var(--font);font-size:1.3rem;font-weight:800;color:var(--text);margin:2rem 0 0.75rem;padding-top:1.5rem;border-top:1px solid var(--border);}
+.post-content h3{font-family:var(--font);font-size:1.05rem;font-weight:700;color:var(--text);margin:1.5rem 0 0.5rem;}
+.post-content p{margin-bottom:1.25rem;}
+.post-content strong{color:var(--text);font-weight:700;}
+.post-content ul,.post-content ol{margin:0 0 1.25rem 1.5rem;}
+.post-content li{margin-bottom:0.4rem;}
+.post-content .highlight-box{background:#eef1ff;border-left:4px solid var(--accent);border-radius:0 8px 8px 0;padding:1rem 1.25rem;margin:1.5rem 0;font-family:var(--font);}
+.post-content .highlight-box p{margin:0;font-size:14.5px;color:var(--text2);}
+.post-content .tip{background:#eef9f5;border:1px solid #a7e9d3;border-radius:8px;padding:1rem 1.25rem;margin:1.5rem 0;font-family:var(--font);}
+.post-content .tip p{margin:0;font-size:14px;color:#065f46;}
+.cta-box{background:linear-gradient(135deg,var(--accent),#7c5cfc);border-radius:14px;padding:1.75rem;text-align:center;margin:2.5rem 0;color:#fff;}
+.cta-box h3{font-size:1.1rem;font-weight:800;margin-bottom:0.5rem;}
+.cta-box p{font-size:13px;opacity:0.9;margin-bottom:1rem;}
+.cta-box a{display:inline-block;background:#fff;color:var(--accent);border-radius:8px;padding:9px 22px;font-size:13px;font-weight:800;text-decoration:none;transition:opacity 0.2s;}
+.cta-box a:hover{opacity:0.9;}
+/* Related posts */
+.related{margin-top:3rem;padding-top:2rem;border-top:1px solid var(--border);}
+.related h3{font-size:1rem;font-weight:800;margin-bottom:1rem;}
+.related-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem;}
+@media(max-width:500px){.related-grid{grid-template-columns:1fr;}}
+.related-card{background:var(--white);border:1px solid var(--border);border-radius:10px;padding:1rem;cursor:pointer;transition:all 0.18s;}
+.related-card:hover{border-color:var(--accent);}
+.related-card .rt{font-size:13px;font-weight:700;line-height:1.4;color:var(--text);margin-bottom:4px;}
+.related-card .rm{font-size:11px;color:var(--text3);}
+footer{background:var(--white);border-top:1px solid var(--border);padding:1.5rem;text-align:center;font-size:12px;color:var(--text3);}
+footer a{color:var(--accent);text-decoration:none;margin:0 8px;}
+</style>
+</head>
+<body>
+<header>
+  <a class="logo" href="index.html">
+    <div class="logo-mark">📡</div>
+    <div class="logo-text">SERP<span>Snap</span></div>
+  </a>
+  <nav>
+    <a href="index.html">Tools</a>
+    <a href="blog.html" class="active">Blog</a>
+    <a href="about.html">About</a>
+    <a href="contact.html">Contact</a>
+  </nav>
+</header>
+
+<div class="blog-hero">
+  <h1>SEO <span>Blog</span></h1>
+  <p>Practical tips and guides to help you rank higher, write better content, and grow your website traffic — for free.</p>
+</div>
+
+<div class="main">
+
+  <!-- POST LIST -->
+  <div id="post-list">
+
+    <div class="post-card" onclick="showPost(0)">
+      <div class="post-img" style="background:linear-gradient(135deg,#667eea,#764ba2)">🔍</div>
+      <div class="post-body">
+        <div class="post-cat">SEO Basics</div>
+        <div class="post-title">What Is a Meta Description and Why Does It Actually Matter?</div>
+        <div class="post-excerpt">Most people write meta descriptions as an afterthought. Here's why that's a mistake — and how to write one that actually gets clicks.</div>
+        <div class="post-meta"><span>📅 June 2025</span><span>·</span><span>⏱ 5 min read</span></div>
+        <div class="read-more">Read Article →</div>
+      </div>
+    </div>
+
+    <div class="post-card" onclick="showPost(1)">
+      <div class="post-img" style="background:linear-gradient(135deg,#f093fb,#f5576c)">🔑</div>
+      <div class="post-body">
+        <div class="post-cat">Content Strategy</div>
+        <div class="post-title">Keyword Density in 2025: The Honest Guide (Not the Outdated One)</div>
+        <div class="post-excerpt">Everyone has an opinion on keyword density. Most of them are wrong. Here's what actually works based on how Google's algorithm has evolved.</div>
+        <div class="post-meta"><span>📅 June 2025</span><span>·</span><span>⏱ 6 min read</span></div>
+        <div class="read-more">Read Article →</div>
+      </div>
+    </div>
+
+    <div class="post-card" onclick="showPost(2)">
+      <div class="post-img" style="background:linear-gradient(135deg,#4facfe,#00f2fe)">🔗</div>
+      <div class="post-body">
+        <div class="post-cat">Technical SEO</div>
+        <div class="post-title">URL Slugs: The Small Detail That Can Make a Big Difference in Rankings</div>
+        <div class="post-excerpt">Your URL slug might be the most overlooked ranking factor. This guide explains exactly how to write URLs that Google and users both love.</div>
+        <div class="post-meta"><span>📅 May 2025</span><span>·</span><span>⏱ 5 min read</span></div>
+        <div class="read-more">Read Article →</div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- SINGLE POST VIEW -->
+  <div id="post-single">
+    <button class="back-btn" onclick="showList()">← Back to Blog</button>
+    <div class="post-full" id="post-content-area"></div>
+  </div>
+
+</div>
+
+<footer>
+  <div>© 2025 SERPSnap · <a href="index.html">Tools</a><a href="blog.html">Blog</a><a href="about.html">About</a><a href="contact.html">Contact</a><a href="privacy-policy.html">Privacy Policy</a></div>
+</footer>
+
+<script>
+const posts = [
+{
+  cat: 'SEO Basics',
+  title: 'What Is a Meta Description and Why Does It Actually Matter?',
+  date: 'June 10, 2025',
+  readTime: '5 min read',
+  emoji: '🔍',
+  gradient: 'linear-gradient(135deg,#667eea,#764ba2)',
+  content: `
+    <p>Let's be honest — most people treat meta descriptions like a chore. You write your blog post, you're tired, and then there's this little box asking for a "description." So you type something quickly, hit publish, and move on.</p>
+    <p>I get it. But here's the thing: that little description might be costing you real traffic every single day.</p>
+
+    <h2>What Exactly Is a Meta Description?</h2>
+    <p>A meta description is a short piece of text — typically between 120 and 158 characters — that appears below your page title in Google search results. It's the small paragraph that tells searchers what your page is about before they click.</p>
+    <p>It lives in the HTML of your page, inside the &lt;head&gt; section, and looks like this:</p>
+    <div class="highlight-box"><p>&lt;meta name="description" content="Your description goes here."&gt;</p></div>
+    <p>Google doesn't always use it — sometimes they pull their own snippet from your page content. But when they do use it, it becomes one of the most visible parts of your search result.</p>
+
+    <h2>Does Google Use It as a Ranking Factor?</h2>
+    <p>Here's where a lot of people get confused. Google has officially stated that meta descriptions are <strong>not a direct ranking factor</strong>. They don't read your description and give your page a higher score because of it.</p>
+    <p>But — and this is a big but — meta descriptions have a massive <em>indirect</em> effect on your rankings.</p>
+    <p>Here's how it works: Google watches click-through rate (CTR) very closely. If your result appears on page one but nobody clicks on it, Google starts to question whether your page is actually relevant. Over time, low CTR can hurt your ranking. A compelling meta description gets people to click. More clicks = better CTR = better rankings. It's that simple.</p>
+
+    <h2>What Makes a Good Meta Description?</h2>
+    <p>A good meta description does three things: it clearly tells the reader what the page is about, it makes them curious or gives them a reason to click, and it stays within the character limit so Google doesn't cut it off.</p>
+
+    <h3>The right length</h3>
+    <p>Aim for 120 to 158 characters. Shorter than 120 and you're wasting valuable space. Longer than 158 and Google will truncate it with "..." — which looks unprofessional and loses your call to action.</p>
+
+    <h3>Include your main keyword</h3>
+    <p>When someone searches for a term that appears in your description, Google bolds that term in the results. This makes your result stand out visually and signals relevance to the reader. Don't stuff it in unnaturally — just use it once, where it fits.</p>
+
+    <h3>Write for humans, not robots</h3>
+    <p>The biggest mistake people make is writing descriptions that sound like a robot wrote them. "This article discusses the topic of meta descriptions and their importance in SEO practice." Nobody wants to click that. Write like you're talking to a real person. Be direct. Be specific. Tell them exactly what they'll get.</p>
+
+    <h3>End with a call to action</h3>
+    <p>A simple phrase like "Learn how →", "Try it free", or "See the full guide" at the end of your description can meaningfully improve click-through rates. It gives the reader a nudge.</p>
+
+    <div class="tip"><p>✅ <strong>Quick tip:</strong> Use our free <a href="index.html">SERP Preview Tool</a> to see exactly how your title and description will look in Google — including a character counter and live SEO score.</p></div>
+
+    <h2>Real Examples: Bad vs. Good</h2>
+    <p><strong>Bad:</strong> "This page is about meta descriptions and SEO best practices for websites."</p>
+    <p><strong>Good:</strong> "Meta descriptions don't rank you directly — but they control whether people click. Here's how to write one that actually works."</p>
+    <p>The second version is specific, a little provocative, and gives a clear benefit. You want to read it. The first one puts you to sleep.</p>
+
+    <h2>What If You Don't Write One?</h2>
+    <p>If you leave the meta description blank, Google will automatically generate one by pulling text from your page. Sometimes they do a decent job. Usually they pull something awkward — a random sentence from the middle of your article that makes no sense out of context.</p>
+    <p>You're better off writing your own and controlling the message.</p>
+
+    <h2>The Bottom Line</h2>
+    <p>Meta descriptions are a small thing that take maybe two minutes to write — but they have a real impact on how many people visit your site. Don't skip them. Don't rush them. Spend two minutes writing something honest and compelling, and your click-through rate will thank you.</p>
+
+    <div class="cta-box">
+      <h3>Check Your Meta Description Right Now</h3>
+      <p>Use our free SERP Preview Tool to see how your title and description look on Google, check character counts, and get an instant SEO score.</p>
+      <a href="index.html">Open SERP Preview Tool →</a>
+    </div>
+  `,
+  related: [1, 2]
+},
+{
+  cat: 'Content Strategy',
+  title: 'Keyword Density in 2025: The Honest Guide (Not the Outdated One)',
+  date: 'June 5, 2025',
+  readTime: '6 min read',
+  emoji: '🔑',
+  gradient: 'linear-gradient(135deg,#f093fb,#f5576c)',
+  content: `
+    <p>If you search "ideal keyword density" right now, you'll find about a hundred articles confidently telling you the answer is 1–3%. Some say 2%. Some say "it depends." Very few of them explain why.</p>
+    <p>Let me try to actually explain it — and tell you what matters more than hitting a specific percentage.</p>
+
+    <h2>What Is Keyword Density?</h2>
+    <p>Keyword density is the percentage of times a keyword appears in your content relative to the total word count. The formula is simple:</p>
+    <div class="highlight-box"><p><strong>Density = (Number of keyword occurrences ÷ Total words) × 100</strong></p></div>
+    <p>So if you write a 1,000-word article and your target keyword appears 15 times, the density is 1.5%.</p>
+
+    <h2>Where Did the "1–3%" Rule Come From?</h2>
+    <p>This rule has been floating around since the early 2000s, when search engines were much simpler. Back then, if you repeated a keyword enough times, you'd rank for it. So people started cramming keywords into every sentence, hoping to trick the algorithm.</p>
+    <p>Google got smarter. They introduced updates (Panda, Hummingbird, BERT) specifically to penalize over-optimized, keyword-stuffed content. The 1–3% guideline survived as a rough safety boundary — not because there's scientific evidence for it, but because it generally keeps you out of trouble.</p>
+
+    <h2>Does Google Actually Measure Keyword Density?</h2>
+    <p>Here's what Google has actually said: they evaluate content for topical relevance, not raw keyword frequency. Their systems look at the overall meaning and context of a page — not whether "best running shoes" appears exactly 18 times.</p>
+    <p>That said, using your keyword too rarely means Google might not understand what your page is about. Using it too much looks spammy. The 1–3% range is a reasonable ballpark, but it's not a magic formula.</p>
+
+    <h2>What Actually Matters More</h2>
+
+    <h3>Natural language and synonyms</h3>
+    <p>Modern Google understands synonyms and related concepts. If you're writing about "keyword density," you can also naturally use phrases like "keyword frequency," "how often a keyword appears," and "keyword usage" — and Google understands they're all talking about the same thing. You don't need to repeat the exact phrase 20 times.</p>
+
+    <h3>Content quality and depth</h3>
+    <p>A 2,000-word article that genuinely covers a topic from multiple angles will typically outrank a 500-word article that hits a 2% density. Google rewards depth and usefulness. If your content is thin but keyword-heavy, it will not rank.</p>
+
+    <h3>Placement matters more than frequency</h3>
+    <p>Where your keyword appears has more weight than how often it appears. Including your keyword in:</p>
+    <ul>
+      <li>The page title</li>
+      <li>The first 100 words of the article</li>
+      <li>At least one H2 heading</li>
+      <li>The meta description</li>
+      <li>The URL slug</li>
+    </ul>
+    <p>...signals relevance to Google much more strongly than repeating it throughout the body text.</p>
+
+    <h2>When Keyword Density Actually Hurts You</h2>
+    <p>There's a real phenomenon called keyword stuffing, and Google is very good at detecting it. Signs that you might be over-optimizing:</p>
+    <ul>
+      <li>Your keyword appears more than once every 50 words</li>
+      <li>Sentences sound unnatural because you've forced the keyword in</li>
+      <li>You're using the exact same phrase repeatedly when a pronoun or synonym would sound more natural</li>
+      <li>Your density is above 3–4%</li>
+    </ul>
+    <p>If any of these apply to your content, it's worth revising. Not because Google will immediately penalize you — but because your content will sound robotic to real readers, and they'll leave quickly. High bounce rate is also a signal Google watches.</p>
+
+    <div class="tip"><p>✅ <strong>Use our free <a href="index.html">Keyword Density Checker</a> to instantly analyze your content</strong>, see which words appear most frequently, and check if your target keyword hits the right density.</p></div>
+
+    <h2>A Practical Approach for 2025</h2>
+    <p>Here's what I'd actually recommend instead of obsessing over a specific percentage:</p>
+    <ol style="margin:0 0 1.25rem 1.5rem;">
+      <li style="margin-bottom:0.5rem">Write your content naturally first, as if you're explaining the topic to a knowledgeable friend.</li>
+      <li style="margin-bottom:0.5rem">After you're done, check if your main keyword appears in the title, first paragraph, one or two subheadings, and the URL.</li>
+      <li style="margin-bottom:0.5rem">Run it through a keyword density tool to spot any over-optimization.</li>
+      <li style="margin-bottom:0.5rem">If the density is above 3%, read those sections out loud. If they sound unnatural, rewrite them.</li>
+      <li style="margin-bottom:0.5rem">If the density is below 0.5% and the keyword doesn't appear in the title or headings, your content might not rank for that term at all — consider revising.</li>
+    </ol>
+    <p>It's less of a formula and more of a sanity check.</p>
+
+    <h2>The Bottom Line</h2>
+    <p>Keyword density is a useful diagnostic tool, not a target to optimize for. Write content that genuinely helps your readers, make sure your keyword appears in the right places, and avoid anything that sounds like you're repeating yourself for the sake of it. The 1–3% range is a decent guardrail — but the best content doesn't hit a number, it answers a question better than anything else on the first page of Google.</p>
+
+    <div class="cta-box">
+      <h3>Analyze Your Content's Keyword Density</h3>
+      <p>Paste your article into our free Keyword Density Checker and see exactly which keywords appear and at what frequency — instantly.</p>
+      <a href="index.html">Open Keyword Density Checker →</a>
+    </div>
+  `,
+  related: [0, 2]
+},
+{
+  cat: 'Technical SEO',
+  title: 'URL Slugs: The Small Detail That Can Make a Big Difference in Rankings',
+  date: 'May 28, 2025',
+  readTime: '5 min read',
+  emoji: '🔗',
+  gradient: 'linear-gradient(135deg,#4facfe,#00f2fe)',
+  content: `
+    <p>When you're building a website or publishing a blog post, the URL is probably one of the last things on your mind. You've got content to write, images to add, categories to select — the URL box just sits there, usually auto-filled with a long string of text from your title.</p>
+    <p>But your URL slug is one of those small things that SEO professionals pay attention to from day one. And when you see the difference between a good slug and a bad one, you'll understand why.</p>
+
+    <h2>What Is a URL Slug?</h2>
+    <p>The "slug" is the part of the URL that comes after your domain name. In the URL <code style="background:#f0f2ff;padding:2px 6px;border-radius:4px;font-size:14px;">yoursite.com/url-slug-guide</code>, the slug is <strong>url-slug-guide</strong>.</p>
+    <p>It's essentially the address of your specific page. Every page on your website has its own unique slug.</p>
+
+    <h2>Why Do URL Slugs Affect SEO?</h2>
+    <p>Google has confirmed that the URL is a minor ranking signal — it's not the most important factor, but it contributes. More importantly, URLs appear in search results, and a clear, readable URL helps users decide whether to click on your result.</p>
+    <p>Consider these two URLs for the same article:</p>
+    <div class="highlight-box">
+      <p>❌ yoursite.com/p?id=4829&cat=12&ref=blog</p>
+      <p>✅ yoursite.com/how-to-write-meta-descriptions</p>
+    </div>
+    <p>The second one immediately tells the user (and Google) what the page is about. The first one could be anything.</p>
+
+    <h2>What Makes a Good URL Slug?</h2>
+
+    <h3>Keep it short</h3>
+    <p>There's no hard rule, but most SEO professionals recommend keeping slugs to 3–5 words. Shorter URLs are easier to remember, easier to share, and look cleaner in search results. If your page title is "The Complete Beginner's Guide to Writing SEO-Friendly Meta Descriptions for Blog Posts in 2025," your slug doesn't need to be all of that. Something like <strong>meta-description-guide</strong> works perfectly.</p>
+
+    <h3>Include your main keyword</h3>
+    <p>Your slug should contain the primary keyword you're targeting. If someone is searching for "free seo tools," having that phrase in your URL is a small positive signal. Don't force multiple keywords in — just your main one, naturally.</p>
+
+    <h3>Use hyphens, never underscores</h3>
+    <p>Google treats hyphens as word separators. So <strong>url-slug-guide</strong> is read as three separate words: "url", "slug", "guide." Underscores, on the other hand, are not treated as separators — <strong>url_slug_guide</strong> is read as one word: "urlslugguide." Always use hyphens.</p>
+
+    <h3>Use lowercase only</h3>
+    <p>URLs are technically case-sensitive on many servers. <strong>yoursite.com/SEO-Guide</strong> and <strong>yoursite.com/seo-guide</strong> could be treated as two different pages, causing duplicate content issues. Keep everything lowercase to avoid this entirely.</p>
+
+    <h3>Remove stop words</h3>
+    <p>Stop words are common small words like "a", "an", "the", "and", "for", "of", "in." They don't add SEO value to a URL and just make it longer. Instead of <strong>the-best-guide-to-writing-seo-titles</strong>, use <strong>seo-title-writing-guide</strong>. Cleaner and more focused.</p>
+
+    <div class="tip"><p>✅ <strong>Use our free <a href="index.html">URL Slug Generator</a></strong> to instantly turn any title into a clean, SEO-friendly slug. It removes stop words, converts to lowercase, and shows multiple variations.</p></div>
+
+    <h2>Common URL Slug Mistakes to Avoid</h2>
+
+    <h3>Changing slugs after publishing</h3>
+    <p>This is a big one. Once a page is live and indexed by Google, changing the URL breaks any links pointing to it and loses the ranking history of that page. If you must change a URL, set up a 301 redirect from the old URL to the new one.</p>
+
+    <h3>Using dates in slugs</h3>
+    <p>Many blogs automatically add dates to URLs, like <strong>yoursite.com/2021/06/my-guide</strong>. The problem is that when you update the article in 2025, the URL still says 2021 — which might make it look outdated to readers. Timeless slugs are better for content that you plan to keep updating.</p>
+
+    <h3>Auto-generated slugs from titles</h3>
+    <p>WordPress and most CMS platforms auto-generate slugs from your post title. This is fine as a starting point, but always review and clean it up before publishing. Auto-generated slugs often include stop words and end up too long.</p>
+
+    <h2>Does Slug Length Actually Matter?</h2>
+    <p>Google's John Mueller has said that very long URLs can be slightly problematic for crawling, but for most normal-length slugs, it's not a major concern. The practical reason to keep slugs short is user experience — not algorithm rules. Short URLs look better, get remembered more easily, and are easier to share.</p>
+
+    <h2>One More Thing: Folders vs. Flat Structure</h2>
+    <p>Some sites use folder structures in URLs, like <strong>yoursite.com/blog/seo/meta-descriptions</strong>. Others keep it flat: <strong>yoursite.com/meta-descriptions</strong>. Neither is universally better for SEO. Flat structures tend to look cleaner and are slightly easier for Google to crawl. But if you have a large site with many categories, a folder structure can help organize content meaningfully.</p>
+
+    <h2>The Bottom Line</h2>
+    <p>URL slugs are a small, one-time decision for each page — but they're hard to change later without consequences. Take two minutes when you publish anything new to clean up your slug: keep it short, include your keyword, use hyphens, and remove the fluff. It's a simple habit that adds up over hundreds of pages.</p>
+
+    <div class="cta-box">
+      <h3>Generate a Clean URL Slug Instantly</h3>
+      <p>Type or paste your page title into our free URL Slug Generator and get an SEO-friendly slug in seconds.</p>
+      <a href="index.html">Open URL Slug Generator →</a>
+    </div>
+  `,
+  related: [0, 1]
+}
+];
+
+function showPost(i) {
+  const p = posts[i];
+  document.getElementById('post-list').style.display = 'none';
+  document.getElementById('post-single').style.display = 'block';
+  const related = p.related.map(ri => `
+    <div class="related-card" onclick="showPost(${ri})">
+      <div class="rt">${posts[ri].title}</div>
+      <div class="rm">📅 ${posts[ri].date} · ⏱ ${posts[ri].readTime}</div>
+    </div>`).join('');
+  document.getElementById('post-content-area').innerHTML = `
+    <div class="post-full-header">
+      <div class="post-full-cat">${p.cat}</div>
+      <div class="post-full-title">${p.title}</div>
+      <div class="post-full-meta">📅 ${p.date} &nbsp;·&nbsp; ⏱ ${p.readTime}</div>
+    </div>
+    <div class="post-full-img" style="background:${p.gradient}">${p.emoji}</div>
+    <div class="post-content">${p.content}</div>
+    <div class="related">
+      <h3>Related Articles</h3>
+      <div class="related-grid">${related}</div>
+    </div>
+  `;
+  window.scrollTo({top: 0, behavior: 'smooth'});
+}
+
+function showList() {
+  document.getElementById('post-single').style.display = 'none';
+  document.getElementById('post-list').style.display = 'grid';
+  window.scrollTo({top: 0, behavior: 'smooth'});
+}
+</script>
+</body>
+</html>
