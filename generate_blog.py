@@ -99,16 +99,6 @@ Return ONLY a valid JSON object. No markdown. No backticks. No extra text before
   "readTime": "5 min read",
   "content": "full HTML using only p, h2, h3, ul, ol, li, strong, em tags"
 }}"""
-
-import time
-    for attempt in range(3):
-        response = requests.post(url, json=payload, timeout=60)
-        if response.status_code == 429:
-            print(f"Rate limit hit, waiting 60s... (attempt {attempt+1})")
-            time.sleep(60)
-            continue
-        response.raise_for_status()
-        break
         
     url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent?key={GEMINI_API_KEY}"
 
