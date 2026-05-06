@@ -7,7 +7,6 @@ from datetime import datetime
 
 GEMINI_API_KEY = os.environ.get("GEMINI_API_KEY")
 
-# SEO topics pool - niche related
 TOPICS = [
     "how to write the perfect title tag for google search",
     "what is crawl budget and why does it matter for small websites",
@@ -53,209 +52,181 @@ GRADIENTS = [
     "linear-gradient(135deg,#43e97b,#38f9d7)",
     "linear-gradient(135deg,#fa709a,#fee140)",
     "linear-gradient(135deg,#a18cd1,#fbc2eb)",
-    "linear-gradient(135deg,#ffecd2,#fcb69f)",
     "linear-gradient(135deg,#ff9a9e,#fecfef)",
     "linear-gradient(135deg,#a1c4fd,#c2e9fb)",
     "linear-gradient(135deg,#fd7043,#ff8a65)",
 ]
 
-EMOJIS = ["📊", "🔍", "🚀", "💡", "🎯", "📈", "🔑", "⚡", "🛠️", "📝", "🌐", "🔗"]
-
-CATEGORIES = [
-    "SEO Basics", "Content Strategy", "Technical SEO",
-    "Link Building", "Keyword Research", "On-Page SEO",
-    "Google Tools", "Blogging Tips"
-]
+EMOJIS = ["📊","🔍","🚀","💡","🎯","📈","🔑","⚡","🛠️","📝","🌐","🔗"]
 
 def get_used_topics():
-    """Read blog.html and extract already used topics"""
     try:
-        with open("blog.html", "r", encoding="utf-8") as f:
+        with open("blog.html","r",encoding="utf-8") as f:
             content = f.read()
-        titles = re.findall(r'"title":\s*"([^"]+)"', content)
+        titles = re.findall(r"title:\s*'([^']+)'", content)
         return [t.lower() for t in titles]
     except:
         return []
 
 def pick_topic(used_topics):
-    """Pick a topic not used recently"""
-    available = [t for t in TOPICS if not any(
-        word in " ".join(used_topics[-10:]) 
-        for word in t.split()[:3]
-    )]
+    used_words = " ".join(used_topics[-10:])
+    available = [t for t in TOPICS if t.split()[0] not in used_words]
     if not available:
         available = TOPICS
     return random.choice(available)
 
 def generate_blog_post(topic):
-    """Call Gemini API to generate humanized blog post"""
-    
     current_year = datetime.now().year
-    current_month = datetime.now().strftime("%B")
-    
+
     prompt = f"""Write a detailed, humanized SEO blog post about: "{topic}"
 
 STRICT REQUIREMENTS:
-- Length: 900-1200 words
-- Tone: Conversational, like a friend explaining to another friend. Not corporate. Not robotic.
-- Write in first person sometimes ("I've found that...", "When I started...", "In my experience...")
-- Include occasional mild uncertainty ("I think", "from what I've seen", "this might vary")
-- Use short paragraphs (2-4 sentences max)
-- Include 2-3 real, practical examples
-- Mention current year {current_year} where relevant
-- Add a personal anecdote or story in the introduction
-- DO NOT use these overused AI phrases: "In today's digital landscape", "It's worth noting", "Let's dive in", "Game-changer", "In conclusion"
-- Use simple words. Avoid jargon where possible.
-- Use subheadings (H2 and H3)
-- End with a practical takeaway, not a generic conclusion
-- Naturally mention SERPSnap tools where genuinely relevant (SERP preview, keyword density checker, meta tag generator, word counter, URL slug generator)
-- Link to tools page: https://tools.serpsnap.abrdns.com/
+- Length: 800-1000 words
+- Tone: Conversational, like explaining to a friend. Not corporate.
+- Use first person sometimes ("I've found", "In my experience", "When I tried")
+- Short paragraphs (2-3 sentences max)
+- Include practical examples
+- Mention year {current_year} where relevant
+- DO NOT use: "In today's digital landscape", "Let's dive in", "Game-changer", "In conclusion"
+- Naturally mention SERPSnap tools where relevant
+- Link: https://tools.serpsnap.abrdns.com/
 
-OUTPUT FORMAT - Return ONLY a JSON object, no markdown, no backticks:
+Return ONLY a valid JSON object. No markdown. No backticks. No extra text before or after.
 {{
-  "title": "exact blog post title here",
-  "category": "one of: SEO Basics, Content Strategy, Technical SEO, Link Building, Keyword Research, On-Page SEO, Google Tools, Blogging Tips",
-  "excerpt": "2 sentence description that makes people want to read",
-  "readTime": "X min read",
-  "content": "full HTML content using only <p>, <h2>, <h3>, <ul>, <ol>, <li>, <strong>, <em> tags. No divs. No classes."
+  "title": "blog post title here",
+  "category": "SEO Basics",
+  "excerpt": "2 sentence teaser",
+  "readTime": "5 min read",
+  "content": "full HTML using only p, h2, h3, ul, ol, li, strong, em tags"
 }}"""
 
     url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key={GEMINI_API_KEY}"
-    
+
     payload = {
         "contents": [{"parts": [{"text": prompt}]}],
         "generationConfig": {
-            "temperature": 0.9,
-            "topK": 40,
-            "topP": 0.95,
-            "maxOutputTokens": 3000,
+            "temperature": 0.85,
+            "maxOutputTokens": 2500,
         }
     }
-    
+
     response = requests.post(url, json=payload, timeout=60)
     response.raise_for_status()
-    
+
     data = response.json()
     raw = data["candidates"][0]["content"]["parts"][0]["text"]
-    
-    # Clean response - remove markdown backticks if present
+
+    # Clean markdown if present
     raw = re.sub(r'```json\s*', '', raw)
     raw = re.sub(r'```\s*', '', raw)
     raw = raw.strip()
-    
+
+    # Find JSON object
+    start = raw.find('{')
+    end = raw.rfind('}') + 1
+    if start >= 0 and end > start:
+        raw = raw[start:end]
+
     return json.loads(raw)
 
-def add_post_to_blog(post_data):
-    """Inject new post into blog.html"""
-    
-    with open("blog.html", "r", encoding="utf-8") as f:
-        content = f.read()
-    
+def inject_post(post_data):
+    with open("blog.html","r",encoding="utf-8") as f:
+        html = f.read()
+
     now = datetime.now()
     months = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"]
     date_str = f"{months[now.month-1]} {now.day}, {now.year}"
-    
+
     gradient = random.choice(GRADIENTS)
     emoji = random.choice(EMOJIS)
-    
-    # Clean title for JS string safety
-    title_safe = post_data["title"].replace("'", "\\'").replace('"', '\\"')
-    excerpt_safe = post_data["excerpt"].replace("'", "\\'").replace('"', '\\"')
-    
-    # Clean content for JS
-    content_safe = post_data["content"].replace("\\", "\\\\").replace("`", "\\`").replace("${", "\\${")
-    
-    # Build new post object for the posts array
-    new_post_js = f"""{{
-  cat: '{post_data["category"]}',
-  title: '{title_safe}',
-  date: '{date_str}',
-  readTime: '{post_data["readTime"]}',
-  emoji: '{emoji}',
-  gradient: '{gradient}',
-  content: `{content_safe}`,
-  related: [0, 1]
-}}"""
-    
-    # Build new card HTML for the post list
-    new_card_html = f"""
-    <div class="post-card" onclick="showPost(NEWINDEX)">
+    cat = post_data.get("category","SEO Tips")
+    title = post_data["title"]
+    excerpt = post_data["excerpt"]
+    read_time = post_data.get("readTime","5 min read")
+    content = post_data["content"]
+
+    # Escape for JS template literal
+    def js_escape(s):
+        return s.replace('\\','\\\\').replace('`','\\`').replace('${','\\${').replace("'","\\'")
+
+    title_js = js_escape(title)
+    excerpt_js = js_escape(excerpt)
+    content_js = js_escape(content)
+
+    # Count existing posts
+    existing = len(re.findall(r'\bcat:', html))
+    new_index = existing  # 0-based index of new post
+
+    # NEW POST CARD — inject before closing of post-list
+    new_card = f"""
+    <div class="post-card" onclick="showPost({new_index})">
       <div class="post-img" style="background:{gradient}">{emoji}</div>
       <div class="post-body">
-        <div class="post-cat">{post_data["category"]}</div>
-        <div class="post-title">{post_data["title"]}</div>
-        <div class="post-excerpt">{post_data["excerpt"]}</div>
-        <div class="post-meta"><span>📅 {date_str}</span><span>·</span><span>⏱ {post_data["readTime"]}</span></div>
+        <div class="post-cat">{cat}</div>
+        <div class="post-title">{title}</div>
+        <div class="post-excerpt">{excerpt}</div>
+        <div class="post-meta"><span>📅 {date_str}</span><span>·</span><span>⏱ {read_time}</span></div>
         <div class="read-more">Read Article →</div>
       </div>
     </div>"""
 
-    # Find the posts array and add new post
-    posts_pattern = r'(const posts = \[)(.*?)(\];)'
-    
-    def add_to_posts(match):
-        before = match.group(1)
-        existing = match.group(2).rstrip()
-        after = match.group(3)
-        # Count existing posts to set index
-        existing_count = len(re.findall(r'cat:', existing))
-        new_post_indexed = new_post_js.replace("related: [0, 1]", 
-                                                f"related: [0, {min(1, existing_count-1)}]")
-        return f"{before}{existing},\n{new_post_indexed}\n{after}"
-    
-    content = re.sub(posts_pattern, add_to_posts, content, flags=re.DOTALL)
-    
-    # Count total posts after adding
-    total_posts = len(re.findall(r'cat:', content)) - 1  # -1 for the pattern itself
-    
-    # Fix onclick indices for new card
-    new_card_html = new_card_html.replace("NEWINDEX", str(total_posts - 1))
-    
-    # Add new card before closing of post-list div
-    content = content.replace(
-        '</div>\n\n  <!-- SINGLE POST VIEW -->',
-        f'{new_card_html}\n\n  </div>\n\n  <!-- SINGLE POST VIEW -->'
+    # NEW POST JS OBJECT — inject before closing ];
+    new_post_js = f"""
+,{{
+  cat: '{cat}',
+  title: '{title_js}',
+  date: '{date_str}',
+  readTime: '{read_time}',
+  emoji: '{emoji}',
+  gradient: '{gradient}',
+  content: `{content_js}`,
+  related: [0, 1]
+}}"""
+
+    # Inject card into post-list
+    html = html.replace(
+        '  <!-- SINGLE POST VIEW -->',
+        new_card + '\n\n  <!-- SINGLE POST VIEW -->'
     )
-    
-    with open("blog.html", "w", encoding="utf-8") as f:
-        f.write(content)
-    
-    print(f"✅ Added: {post_data['title']}")
-    return True
+
+    # Inject JS object before ]; at end of posts array
+    html = html.replace(
+        '];\n\nfunction showPost',
+        new_post_js + '\n];\n\nfunction showPost'
+    )
+
+    with open("blog.html","w",encoding="utf-8") as f:
+        f.write(html)
+
+    print(f"✅ Post added: {title}")
 
 def main():
     print("🚀 SERPSnap Blog Generator Starting...")
-    
+
     if not GEMINI_API_KEY:
-        print("❌ GEMINI_API_KEY not found!")
+        print("❌ GEMINI_API_KEY missing!")
         return
-    
-    # How many posts today - random between 2-4
-    # But check what time it is to spread them out
-    hour = datetime.now().hour
-    
-    # Each cron run generates 1 post
-    # 4 cron schedules = max 4 posts/day
-    # Random skip to keep it between 2-4
-    if random.random() < 0.3:  # 30% chance to skip this run
-        print("⏭️ Skipping this run for natural variation")
+
+    # 30% skip for natural variation
+    if random.random() < 0.3:
+        print("⏭️ Skipping this run — natural variation")
         return
-    
-    used_topics = get_used_topics()
-    print(f"📚 Found {len(used_topics)} existing posts")
-    
-    topic = pick_topic(used_topics)
-    print(f"📝 Generating post about: {topic}")
-    
+
+    used = get_used_topics()
+    print(f"📚 Existing posts: {len(used)}")
+
+    topic = pick_topic(used)
+    print(f"📝 Topic: {topic}")
+
     try:
-        post_data = generate_blog_post(topic)
-        print(f"✅ Generated: {post_data['title']}")
-        
-        add_post_to_blog(post_data)
-        print("✅ Blog updated successfully!")
-        
+        post = generate_blog_post(topic)
+        print(f"✅ Generated: {post['title']}")
+        inject_post(post)
+        print("✅ blog.html updated!")
     except Exception as e:
         print(f"❌ Error: {e}")
+        import traceback
+        traceback.print_exc()
         raise
 
 if __name__ == "__main__":
