@@ -7,25 +7,25 @@
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://tools.serpsnap.abrdns.com/blog.html</loc>
+    <loc>https://tools.serpsnap.abrdns.com/blog</loc>
     <lastmod>2025-06-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://tools.serpsnap.abrdns.com/about.html</loc>
+    <loc>https://tools.serpsnap.abrdns.com/about</loc>
     <lastmod>2025-06-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://tools.serpsnap.abrdns.com/contact.html</loc>
+    <loc>https://tools.serpsnap.abrdns.com/contact</loc>
     <lastmod>2025-06-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://tools.serpsnap.abrdns.com/privacy-policy.html</loc>
+    <loc>https://tools.serpsnap.abrdns.com/privacy-policy</loc>
     <lastmod>2025-06-01</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
